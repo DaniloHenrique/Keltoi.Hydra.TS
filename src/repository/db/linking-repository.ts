@@ -1,32 +1,27 @@
-import type { IEntity, ILinking, IEntityFactory, IModel, IKeyLinking } from '../../core';
+import type { IEntity, ILinking, IEntityFactory, IKeyLinking } from '../../core';
 import type { IDbContext } from '../../context/db';
 
 import { Result, ResultType } from '../../core';
 import { DbRepository } from './db-repository';
 
 export class LinkingRepository<    
-    TLinkingModel extends IModel,
     TKeyAbscissa, 
-    TAbscissaModel extends IModel,
-    TAbscissa extends IEntity<TKeyAbscissa,TAbscissaModel>,
+    TAbscissa extends IEntity<TKeyAbscissa>,
     TKeyOrdinate,
-    TOrdinateModel extends IModel,
-    TOrdinate extends IEntity<TKeyOrdinate,TOrdinateModel>,
-    TLinking extends ILinking<TLinkingModel, TKeyAbscissa, TAbscissaModel, TAbscissa, TKeyOrdinate, TOrdinateModel, TOrdinate>
+    TOrdinate extends IEntity<TKeyOrdinate>,
+    TLinking extends ILinking<TKeyAbscissa, TAbscissa, TKeyOrdinate, TOrdinate>
 > extends DbRepository<
     IKeyLinking<TKeyAbscissa, TKeyOrdinate>,
-    TLinkingModel,
     TLinking
 > {
 
     constructor(
         public readonly factory: IEntityFactory<
             IKeyLinking<TKeyAbscissa, TKeyOrdinate>,
-            TLinkingModel,
             TLinking
         >, 
-        public readonly abscissaFactory: IEntityFactory<TKeyAbscissa, TAbscissaModel, TAbscissa>,
-        public readonly ordinateFactory: IEntityFactory<TKeyOrdinate, TOrdinateModel, TOrdinate>,
+        public readonly abscissaFactory: IEntityFactory<TKeyAbscissa, TAbscissa>,
+        public readonly ordinateFactory: IEntityFactory<TKeyOrdinate, TOrdinate>,
         protected readonly context: IDbContext
     ) {
         super(factory, context);

@@ -1,4 +1,4 @@
-import type { IEntity, IEntityFactory, IModel} from '../../core';
+import type { IEntity, IEntityFactory } from '../../core';
 import type { IDbRepository} from './interface';
 import type { IDbContext, IDbTransaction } from '../../context/db';
 
@@ -9,12 +9,11 @@ import { Result, ResultType} from '../../core';
 
 export abstract class DbRepository<
   TKey,
-  TModel extends IModel,
-  TEntity extends IEntity<TKey, TModel>
+  TEntity extends IEntity<TKey>
 > implements IDbRepository<TEntity> {
     protected _transactionContext: IDbTransaction|null = null;
 
-    constructor(public readonly factory: IEntityFactory<TKey,TModel,TEntity>,protected readonly context: IDbContext) {}
+    constructor(public readonly factory: IEntityFactory<TKey,TEntity>,protected readonly context: IDbContext) {}
 
     set transaction(transactionContext: IDbTransaction) {
         this._transactionContext = transactionContext;

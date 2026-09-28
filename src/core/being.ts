@@ -1,6 +1,5 @@
 import type { IEntity } from './entity.js';
-import type { IModel } from './model.js';
 
-export interface IBeing<TKey, TModel extends IModel> extends IEntity<TKey, TModel> {
+export interface IBeing<TKey> extends IEntity<TKey> {
     readonly description: string
 }

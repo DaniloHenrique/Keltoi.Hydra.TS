@@ -1,6 +1,5 @@
 import type { IBeing, IEntityFactory} from '../../core';
 import type { IDbContext } from '../../context/db';
-import type { IModel } from '../../core/model';
 
 import { Result, ResultType } from '../../core';
 import { DbRepository } from './db-repository';
@@ -8,13 +7,12 @@ import { DbRepository } from './db-repository';
 
 export class BeingRepository<
     TKey, 
-    TModel extends IModel, 
-    TBeing extends IBeing<TKey,TModel>
+    TBeing extends IBeing<TKey>
 > extends 
-    DbRepository<TKey, TModel, TBeing> 
+    DbRepository<TKey,TBeing> 
 {
     constructor(
-        public readonly factory: IEntityFactory<TKey, TModel, TBeing>,
+        public readonly factory: IEntityFactory<TKey, TBeing>,
         protected readonly context: IDbContext
     ) {
         super(factory, context);

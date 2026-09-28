@@ -1,7 +1,6 @@
 import type { IChangeable, IEntityFactory } from '../../core';
 import type { IDbContext } from '../../context/db';
 import type { IDateTimeRepository } from './interface';
-import type { IModel } from '../../core';
 
 import { Result, ResultType } from '../../core';
 import { DbRepository } from './db-repository'; 
@@ -9,14 +8,13 @@ import { Ordering} from './interface';
 
 export class ChangeableRepository<
     TKey, 
-    TModel extends IModel, 
-    TChangeable extends IChangeable<TKey,TModel>
+    TChangeable extends IChangeable<TKey>
 > 
-    extends DbRepository<TKey, TModel, TChangeable> 
+    extends DbRepository<TKey, TChangeable> 
     implements IDateTimeRepository<TChangeable>
 {
     constructor(
-        public readonly factory: IEntityFactory<TKey, TModel, TChangeable>,
+        public readonly factory: IEntityFactory<TKey, TChangeable>,
         protected readonly context: IDbContext
     ) {
         super(factory, context);

@@ -1,4 +1,4 @@
-import type { IThing, IEntityFactory, IModel } from '../../core';
+import type { IThing, IEntityFactory } from '../../core';
 import type { IDbContext } from '../../context/db';
 
 import { Result, ResultType } from '../../core';
@@ -6,15 +6,13 @@ import { DbRepository } from './db-repository';
 
 export class ThingRepository<
     TKey, 
-    TModel extends IModel, 
-    TThing extends IThing<TKey,TModel>
+    TThing extends IThing<TKey>
 > extends DbRepository<
     TKey,
-    TModel,
     TThing
 > {
     constructor(
-        public readonly factory: IEntityFactory<TKey, TModel, TThing>,
+        public readonly factory: IEntityFactory<TKey, TThing>,
         protected readonly context: IDbContext
     ) {
         super(factory, context);

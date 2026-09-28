@@ -1,4 +1,4 @@
-import type { IEntityFactory, ISubstance, IModel } from "../../core";
+import type { IEntityFactory, ISubstance } from "../../core";
 import type { IDbContext } from "../../context/db";
 
 import { DbRepository } from "./db-repository";
@@ -7,13 +7,12 @@ import { Result, ResultType } from "../../core";
 
 export class SubstanceRepository<
     TKey, 
-    TModel extends IModel, 
-    TSubstance extends ISubstance<TKey,TModel>
+    TSubstance extends ISubstance<TKey>
 > 
-    extends DbRepository<TKey, TModel, TSubstance> 
+    extends DbRepository<TKey,TSubstance> 
 {
     constructor(
-        public readonly factory: IEntityFactory<TKey, TModel, TSubstance>,
+        public readonly factory: IEntityFactory<TKey, TSubstance>,
         protected readonly context: IDbContext
     ) {
         super(factory, context);

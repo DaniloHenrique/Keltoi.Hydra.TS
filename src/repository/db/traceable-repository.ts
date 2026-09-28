@@ -1,4 +1,4 @@
-import type { ITraceable, IEntityFactory, IModel } from '../../core';
+import type { ITraceable, IEntityFactory } from '../../core';
 import type { IDbContext } from '../../context/db';
 import type { IDateTimeRepository } from './interface';
 
@@ -8,14 +8,13 @@ import { Ordering } from './interface';
 
 export class TraceableRepository<
     TKey, 
-    TModel extends IModel, 
-    TTraceable extends ITraceable<TKey,TModel>
+    TTraceable extends ITraceable<TKey>
 > 
-    extends DbRepository<TKey, TModel, TTraceable> 
+    extends DbRepository<TKey,TTraceable> 
     implements IDateTimeRepository<TTraceable>
 {
     constructor(
-        public readonly factory: IEntityFactory<TKey, TModel, TTraceable>,
+        public readonly factory: IEntityFactory<TKey, TTraceable>,
         protected readonly context: IDbContext
     ) {
         super(factory, context);
