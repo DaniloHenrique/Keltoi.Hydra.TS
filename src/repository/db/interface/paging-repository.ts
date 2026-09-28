@@ -2,5 +2,5 @@ import { ResultType, Result } from "../../../core";
 import type { IPaging } from "./paging";
 
 export interface IPagingRepository<TEntity>{
-    pageSearch<TPaging extends IPaging>(paging: TPaging): Promise<Result<TEntity[]|ResultType>>;
+    pageSearch<TPaging extends IPaging>(paging: TPaging): Promise<Result<Array<TEntity>|ResultType>>;
 }

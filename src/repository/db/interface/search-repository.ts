@@ -1,3 +1,3 @@
 export interface ISearchRepository<TEntity>{
-    search(q: string): Promise<TEntity[]>;
+    search(q: string): Promise<Array<TEntity>>;
 }

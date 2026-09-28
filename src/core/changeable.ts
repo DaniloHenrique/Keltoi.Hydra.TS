@@ -1,6 +1,6 @@
 import type { ITraceable } from "./traceable";
-
-export interface IChangeable<TKey> extends ITraceable<TKey> {
+import type { IModel } from "./model";
+export interface IChangeable<TKey, TModel extends IModel> extends ITraceable<TKey, TModel> {
     readonly updatedAt: Date;
     readonly active: boolean;
 }

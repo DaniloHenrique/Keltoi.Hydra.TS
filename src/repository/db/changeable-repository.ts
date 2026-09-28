@@ -1,23 +1,28 @@
 import type { IChangeable, IEntityFactory } from '../../core';
 import type { IDbContext } from '../../context/db';
 import type { IDateTimeRepository } from './interface';
+import type { IModel } from '../../core';
 
 import { Result, ResultType } from '../../core';
 import { DbRepository } from './db-repository'; 
 import { Ordering} from './interface';
 
-export class ChangeableRepository<TKey> 
-    extends DbRepository<TKey, IChangeable<TKey>> 
-    implements IDateTimeRepository<IChangeable<TKey>>
+export class ChangeableRepository<
+    TKey, 
+    TModel extends IModel, 
+    TChangeable extends IChangeable<TKey,TModel>
+> 
+    extends DbRepository<TKey, TModel, TChangeable> 
+    implements IDateTimeRepository<TChangeable>
 {
     constructor(
-        public readonly factory: IEntityFactory<TKey, IChangeable<TKey>>, 
+        public readonly factory: IEntityFactory<TKey, TModel, TChangeable>,
         protected readonly context: IDbContext
     ) {
         super(factory, context);
     }
 
-    public insert (entity: IChangeable<TKey>): Promise<Result<ResultType>>{
+    public insert (entity: TChangeable): Promise<Result<ResultType>>{
         return this
             .database
             .insert({
@@ -36,7 +41,7 @@ export class ChangeableRepository<TKey>
             )
     }
 
-    public update = (entity: IChangeable<TKey>): Promise<Result<ResultType>>=>{
+    public update = (entity: TChangeable): Promise<Result<ResultType>>=>{
         return this
             .database
             .update({
@@ -54,7 +59,7 @@ export class ChangeableRepository<TKey>
             )
     }
 
-    public delete = (entity: IChangeable<TKey>): Promise<Result<ResultType>>=>{
+    public delete = (entity: TChangeable): Promise<Result<ResultType>>=>{
         return this
             .database
             .update({
@@ -72,7 +77,7 @@ export class ChangeableRepository<TKey>
             )
     }
 
-    public reactive = (entity: IChangeable<TKey>): Promise<Result<ResultType>>=>{
+    public reactive = (entity: TChangeable): Promise<Result<ResultType>>=>{
         return this
             .database
             .update({
@@ -105,7 +110,7 @@ export class ChangeableRepository<TKey>
 
 
 
-    public after(date = new Date(), order:Ordering = Ordering.Ascending): Promise<Result<IChangeable<TKey>[]|ResultType>>{
+    public after(date = new Date(), order:Ordering = Ordering.Ascending): Promise<Result<Array<TChangeable>|ResultType>>{
         return this
             .database
             .select()
@@ -113,14 +118,14 @@ export class ChangeableRepository<TKey>
             .andWhere('active', true)
             .orderBy('updatedAt', order)
             .then(result => 
-                new Result<IChangeable<TKey>[]>(200, result.map(this.factory.build))
+                new Result<Array<TChangeable>>(200, result.map(this.factory.build))
             )
             .catch(error => 
                 new Result<ResultType>(500, ResultType.InternalServerError, error.message)
             )
     }
 
-    public before(date = new Date(), order:Ordering = Ordering.Ascending): Promise<Result<IChangeable<TKey>[]|ResultType>>{
+    public before(date = new Date(), order:Ordering = Ordering.Ascending): Promise<Result<Array<TChangeable>|ResultType>>{
         return this
             .database
             .select()
@@ -128,14 +133,14 @@ export class ChangeableRepository<TKey>
             .andWhere('active', true)
             .orderBy('updatedAt', order)
             .then(result => 
-                new Result<IChangeable<TKey>[]>(200, result.map(this.factory.build))
+                new Result<Array<TChangeable>>(200, result.map(this.factory.build))
             )
             .catch(error => 
                 new Result<ResultType>(500, ResultType.InternalServerError, error.message)
             )
     }
 
-    public last(order:Ordering = Ordering.Ascending): Promise<Result<IChangeable<TKey>|ResultType>>{
+    public last(order:Ordering = Ordering.Ascending): Promise<Result<TChangeable|ResultType>>{
         return this
             .database
             .first()
@@ -143,7 +148,7 @@ export class ChangeableRepository<TKey>
             .where('active', true)
             .then(result => 
                 result.length > 0 
-                    ?new Result<IChangeable<TKey>>(200, this.factory.build(result[0]))
+                    ?new Result<TChangeable>(200, this.factory.build(result[0]))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 
@@ -151,7 +156,7 @@ export class ChangeableRepository<TKey>
             )
     }
 
-    public first(order:Ordering = Ordering.Ascending): Promise<Result<IChangeable<TKey>|ResultType>>{
+    public first(order:Ordering = Ordering.Ascending): Promise<Result<TChangeable|ResultType>>{
         return this
             .database
             .first()
@@ -159,7 +164,7 @@ export class ChangeableRepository<TKey>
             .where('active', true)
             .then(result => 
                 result.length > 0 
-                    ?new Result<IChangeable<TKey>>(200, this.factory.build(result[0]))
+                    ?new Result<TChangeable>(200, this.factory.build(result[0]))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 
@@ -167,14 +172,14 @@ export class ChangeableRepository<TKey>
             )
     }
 
-    public list(order = Ordering.Ascending): Promise<Result<IChangeable<TKey>[]|ResultType>>{
+    public list(order = Ordering.Ascending): Promise<Result<Array<TChangeable>|ResultType>>{
         return this
             .database
             .select()
             .where('active', true)
             .orderBy('updatedAt', order)
             .then(result => 
-                new Result<IChangeable<TKey>[]>(200, result.map(this.factory.build))
+                new Result<Array<TChangeable>>(200, result.map(this.factory.build))
             )
             .catch(error => 
                 new Result<ResultType>(500, ResultType.InternalServerError, error.message)
