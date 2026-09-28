@@ -2,7 +2,7 @@ import type { IModel } from "./model";
 
 export interface IEntity<TKey> {
   readonly id: TKey;
-  toModel<TModel extends IModel>(): TModel;
+  toModel(): IModel;
   toData(): any;
   toKey(): any;
 }
