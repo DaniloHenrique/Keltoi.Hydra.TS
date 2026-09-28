@@ -9,4 +9,4 @@ export enum ResultType {
   InternalServerError = 500,
   Unauthorized = 401,
   Forbidden = 403
-}
+}   
