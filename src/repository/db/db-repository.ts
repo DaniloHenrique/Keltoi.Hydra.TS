@@ -25,7 +25,7 @@ export abstract class DbRepository<
         return this._transactionContext?.transaction(tableName) ?? this.context.db(tableName);
     }
 
-    public create(entity: TEntity): Promise<Result<ResultType>>{
+    public insert(entity: TEntity): Promise<Result<ResultType>>{
         return  this
             .database
             .insert({   
@@ -41,7 +41,7 @@ export abstract class DbRepository<
             )
     }
 
-    public insert(entity: TEntity): Promise<Result<TEntity|ResultType>>{
+    public create(entity: TEntity): Promise<Result<TEntity|ResultType>>{
         return this
             .database
             .insert(
@@ -50,7 +50,12 @@ export abstract class DbRepository<
             )
             .then(ids => 
                 ids.length > 0 
-                    ?new Result<TEntity>(201, this.factory.build(ids[0]))
+                    ?new Result<TEntity>(201, this.factory
+                        .build({
+                            id:ids[0],
+                            ...entity.toData()
+                        })
+                    )
                     :new Result<ResultType>(400, ResultType.BadRequest, 'Bad Request')
             )
             .catch(error => 

@@ -4,8 +4,8 @@ import { Result, ResultType } from "../../../core";
 export interface IDbRepository<TEntity>{
     set transaction(context: IDbTransaction);
 
-    create(entity: TEntity): Promise<Result<ResultType>>;
-    insert(entity: TEntity): Promise<Result<TEntity|ResultType>>;
+    insert(entity: TEntity): Promise<Result<ResultType>>;
+    create(entity: TEntity): Promise<Result<TEntity|ResultType>>;
     get(entity: TEntity): Promise<Result<TEntity|ResultType>>;
     update(entity: TEntity): Promise<Result<ResultType>>;
     delete(entity: TEntity): Promise<Result<ResultType>>;

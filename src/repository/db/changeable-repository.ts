@@ -21,17 +21,42 @@ export class ChangeableRepository<
     }
 
     public insert (entity: TChangeable): Promise<Result<ResultType>>{
+        const data = {
+            ...entity.toKey(), 
+            ...entity.toData(),
+            createdAt: entity.createdAt,
+            active: entity.active
+        }
+
         return this
             .database
-            .insert({
-                ...entity.toKey(), 
-                ...entity.toData(),
-                createdAt: entity.createdAt,
-                active: entity.active
-            })
+            .insert(data)
             .then(result => 
                 result.length > 0 
                     ?new Result<ResultType>(201, ResultType.Created)
+                    :new Result<ResultType>(400, ResultType.BadRequest, 'Bad Request')
+            )
+            .catch(error => 
+                new Result<ResultType>(500, ResultType.InternalServerError, error.message)
+            )
+    }
+
+    public create(entity: TChangeable): Promise<Result<TChangeable|ResultType>>{
+        const data = {
+            ...entity.toData(),
+            createdAt: entity.createdAt,
+            active: entity.active
+        }
+
+        return this
+            .database
+            .insert(data, Object.keys(entity.toKey()))
+            .then(ids => 
+                ids.length > 0 
+                    ?new Result<TChangeable>(201, this.factory.build({
+                        id:ids[0],
+                        ...entity.toData()
+                    }))
                     :new Result<ResultType>(400, ResultType.BadRequest, 'Bad Request')
             )
             .catch(error => 
