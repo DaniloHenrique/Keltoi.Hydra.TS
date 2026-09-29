@@ -24,8 +24,8 @@ export class SubstanceRepository<
             .first()
             .where({name})
             .then(result => 
-                result.length > 0 
-                    ?new Result<TSubstance>(200, this.factory.build(result[0]))
+                !!result
+                    ?new Result<TSubstance>(200, this.factory.build(result))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 
@@ -39,8 +39,8 @@ export class SubstanceRepository<
             .first()
             .where({description})
             .then(result => 
-                result.length > 0 
-                    ?new Result<TSubstance>(200, this.factory.build(result[0]))
+                !!result
+                    ?new Result<TSubstance>(200, this.factory.build(result))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 

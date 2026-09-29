@@ -5,5 +5,5 @@ export interface IEntityFactory<
     TEntity extends IEntity<TKey>
 > {
     tableName: string;
-    build(data: any): TEntity;
+    build(data: {}): TEntity;
 }

@@ -106,8 +106,6 @@ export class ChangeableRepository<
             )
     }
 
-
-
     public after(date = new Date(), order:Ordering = Ordering.Ascending): Promise<Result<Array<TChangeable>|ResultType>>{
         return this
             .database
@@ -145,8 +143,8 @@ export class ChangeableRepository<
             .orderBy('updatedAt', order)
             .where('active', true)
             .then(result => 
-                result.length > 0 
-                    ?new Result<TChangeable>(200, this.factory.build(result[0]))
+                !!result
+                    ?new Result<TChangeable>(200, this.factory.build(result))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 
@@ -161,8 +159,8 @@ export class ChangeableRepository<
             .orderBy('updatedAt', order)
             .where('active', true)
             .then(result => 
-                result.length > 0 
-                    ?new Result<TChangeable>(200, this.factory.build(result[0]))
+                !!result
+                    ?new Result<TChangeable>(200, this.factory.build(result))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 

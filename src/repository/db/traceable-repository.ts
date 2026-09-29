@@ -26,8 +26,8 @@ export class TraceableRepository<
             .first()
             .orderBy('createdAt', order)
             .then(result => 
-                result.length > 0 
-                    ?new Result<TTraceable>(200, this.factory.build(result[0]))
+                !!result
+                    ?new Result<TTraceable>(200, this.factory.build(result))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 
@@ -41,8 +41,8 @@ export class TraceableRepository<
             .first()
             .orderBy('createdAt', order)
             .then(result => 
-                result.length > 0 
-                    ?new Result<TTraceable>(200, this.factory.build(result[0]))
+                !!result
+                    ?new Result<TTraceable>(200, this.factory.build(result))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 

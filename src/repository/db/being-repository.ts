@@ -24,8 +24,8 @@ export class BeingRepository<
             .first()
             .where({description})
             .then(result => 
-                result.length > 0 
-                    ?new Result<TBeing>(200, this.factory.build(result[0].toJSON()))
+                !!result
+                    ?new Result<TBeing>(200, this.factory.build(result))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 

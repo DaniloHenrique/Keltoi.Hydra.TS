@@ -64,7 +64,7 @@ export abstract class DbRepository<
             .first()
             .where(entity.toKey())
             .then(result => 
-                result.length > 0 
+                !!result 
                     ?new Result<TEntity>(200, this.factory.build(result[0]))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )

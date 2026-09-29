@@ -24,8 +24,8 @@ export class ThingRepository<
             .first()
             .where({name})
             .then(result => 
-                result.length > 0 
-                    ?new Result<TThing>(200, this.factory.build(result[0]))
+                !!result
+                    ?new Result<TThing>(200, this.factory.build(result))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 
