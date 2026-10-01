@@ -1,3 +1,6 @@
+import type { ResultType } from "./result-types";
+import type { Result } from "./result";
+
 export interface IModel {
-  validate(): boolean;
+  validate<T>(): Result<T|ResultType>;
 }
