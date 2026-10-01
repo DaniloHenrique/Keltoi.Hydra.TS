@@ -54,7 +54,7 @@ export class ChangeableRepository<
             .then(ids => 
                 ids.length > 0 
                     ?new Result<TChangeable>(201, this.factory.build({
-                        id:ids[0],
+                        ...ids[0],
                         ...entity.toData()
                     }))
                     :new Result<ResultType>(400, ResultType.BadRequest, 'Bad Request')

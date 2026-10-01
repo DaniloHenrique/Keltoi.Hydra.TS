@@ -52,7 +52,7 @@ export abstract class DbRepository<
                 ids.length > 0 
                     ?new Result<TEntity>(201, this.factory
                         .build({
-                            id:ids[0],
+                            ...ids[0],
                             ...entity.toData()
                         })
                     )
