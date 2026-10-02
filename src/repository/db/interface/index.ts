@@ -7,6 +7,6 @@ export * from './paging-repository';
 export * from './search-repository';
 export * from './being-repository';
 export * from './changeable-repository';
-export * from './traceable-repository';
 export * from './substance-repository';
 export * from './thing-repository';
+export * from './linking-repository';

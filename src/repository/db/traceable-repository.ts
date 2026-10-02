@@ -75,7 +75,7 @@ export class TraceableRepository<TKey, TTraceable extends ITraceable<TKey>>
             )
     }
 
-    public list(order = Ordering.Ascending): Promise<Result<Array<TTraceable>|ResultType>>{
+    public orderedList(order = Ordering.Ascending): Promise<Result<Array<TTraceable>|ResultType>>{
         return this
             .database
             .select()

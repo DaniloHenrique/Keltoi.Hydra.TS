@@ -1,6 +1,6 @@
 import type { IChangeable, IEntityFactory } from '../../core';
 import type { IDbContext } from '../../context/db';
-import type { IDateTimeRepository } from './interface';
+import type { IChangeableRepository } from './interface';
 
 import { Result, ResultType } from '../../core';
 import { DbRepository } from './db-repository'; 
@@ -8,7 +8,8 @@ import { Ordering} from './interface';
 
 export class ChangeableRepository<TKey, TChangeable extends IChangeable<TKey>> 
     extends DbRepository<TKey, TChangeable> 
-    implements IDateTimeRepository<TChangeable>
+    implements IChangeableRepository<TChangeable>
+
 {
     constructor(
         public readonly factory: IEntityFactory<TKey, TChangeable>,
@@ -190,7 +191,7 @@ export class ChangeableRepository<TKey, TChangeable extends IChangeable<TKey>>
             )
     }
 
-    public list(order = Ordering.Ascending): Promise<Result<Array<TChangeable>|ResultType>>{
+    public orderedList(order = Ordering.Ascending): Promise<Result<Array<TChangeable>|ResultType>>{
         return this
             .database
             .select()

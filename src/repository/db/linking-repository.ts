@@ -16,10 +16,7 @@ export class LinkingRepository<
 > {
 
     constructor(
-        public readonly factory: IEntityFactory<
-            IKeyLinking<TKeyAbscissa, TKeyOrdinate>,
-            TLinking
-        >, 
+        public readonly factory: IEntityFactory<IKeyLinking<TKeyAbscissa, TKeyOrdinate>,TLinking>, 
         public readonly abscissaFactory: IEntityFactory<TKeyAbscissa, TAbscissa>,
         public readonly ordinateFactory: IEntityFactory<TKeyOrdinate, TOrdinate>,
         protected readonly context: IDbContext

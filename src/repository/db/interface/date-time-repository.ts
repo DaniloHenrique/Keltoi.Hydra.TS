@@ -6,5 +6,5 @@ export interface IDateTimeRepository<TEntity>{
     before(date: Date, order: Ordering): Promise<Result<Array<TEntity>|ResultType>>;
     first(order: Ordering): Promise<Result<TEntity|ResultType>>;
     last(order: Ordering): Promise<Result<TEntity|ResultType>>;
-    list(order: Ordering): Promise<Result<Array<TEntity>|ResultType>>;
+    orderedList(order: Ordering): Promise<Result<Array<TEntity>|ResultType>>;
 }
