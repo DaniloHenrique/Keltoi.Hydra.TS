@@ -70,7 +70,7 @@ export abstract class DbRepository<
             .where(entity.toKey())
             .then(result => 
                 !!result 
-                    ?new Result<TEntity>(200, this.factory.build(result[0]))
+                    ?new Result<TEntity>(200, this.factory.build(result))
                     :new Result<ResultType>(404, ResultType.NotFound, 'Not Found')
             )
             .catch(error => 
