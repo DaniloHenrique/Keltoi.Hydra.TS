@@ -5,11 +5,7 @@ import { DbRepository } from "./db-repository";
 import { Result, ResultType } from "../../core";
 
 
-export class SubstanceRepository<
-    TKey, 
-    TSubstance extends ISubstance<TKey>
-> 
-    extends DbRepository<TKey,TSubstance> 
+export class SubstanceRepository<TKey, TSubstance extends ISubstance<TKey>> extends DbRepository<TKey,TSubstance> 
 {
     constructor(
         public readonly factory: IEntityFactory<TKey, TSubstance>,

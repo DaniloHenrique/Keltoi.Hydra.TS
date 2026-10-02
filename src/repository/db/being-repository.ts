@@ -5,11 +5,7 @@ import { Result, ResultType } from '../../core';
 import { DbRepository } from './db-repository';
 
 
-export class BeingRepository<
-    TKey, 
-    TBeing extends IBeing<TKey>
-> extends 
-    DbRepository<TKey,TBeing> 
+export class BeingRepository<TKey, TBeing extends IBeing<TKey>> extends DbRepository<TKey,TBeing> 
 {
     constructor(
         public readonly factory: IEntityFactory<TKey, TBeing>,

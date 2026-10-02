@@ -6,10 +6,7 @@ import { Result, ResultType } from '../../core';
 import { DbRepository } from './db-repository'; 
 import { Ordering} from './interface';
 
-export class ChangeableRepository<
-    TKey, 
-    TChangeable extends IChangeable<TKey>
-> 
+export class ChangeableRepository<TKey, TChangeable extends IChangeable<TKey>> 
     extends DbRepository<TKey, TChangeable> 
     implements IDateTimeRepository<TChangeable>
 {

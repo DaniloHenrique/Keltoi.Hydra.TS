@@ -6,10 +6,7 @@ import { Result, ResultType } from '../../core';
 import { DbRepository } from './db-repository';
 import { Ordering } from './interface';
 
-export class TraceableRepository<
-    TKey, 
-    TTraceable extends ITraceable<TKey>
-> 
+export class TraceableRepository<TKey, TTraceable extends ITraceable<TKey>> 
     extends DbRepository<TKey,TTraceable> 
     implements IDateTimeRepository<TTraceable>
 {

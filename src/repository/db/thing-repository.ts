@@ -4,13 +4,7 @@ import type { IDbContext } from '../../context/db';
 import { Result, ResultType } from '../../core';
 import { DbRepository } from './db-repository';
 
-export class ThingRepository<
-    TKey, 
-    TThing extends IThing<TKey>
-> extends DbRepository<
-    TKey,
-    TThing
-> {
+export class ThingRepository<TKey, TThing extends IThing<TKey>> extends DbRepository<TKey,TThing> {
     constructor(
         public readonly factory: IEntityFactory<TKey, TThing>,
         protected readonly context: IDbContext
