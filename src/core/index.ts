@@ -18,4 +18,4 @@ export * from './linking';
 export * from './traceable';
 export * from './changeable';
 
-
+export * from './model-entity';

@@ -2,10 +2,8 @@ import type { IEntity, IEntityFactory } from '../../core';
 import type { IDbRepository} from './interface';
 import type { IDbContext, IDbTransaction } from '../../context/db';
 
-
 import { Knex } from "knex";
 import { Result, ResultType} from '../../core';
-
 
 export abstract class DbRepository<TKey,TEntity extends IEntity<TKey>> implements IDbRepository<TEntity> {
     protected _transactionContext: IDbTransaction|null = null;

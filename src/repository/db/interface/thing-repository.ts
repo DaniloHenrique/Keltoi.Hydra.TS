@@ -1,5 +1,5 @@
-import { ResultType } from "../../../core";
+import { ResultType, Result } from "../../../core";
 
 export interface IThingRepository<TThing>{
-    getByName(name: string): Promise<TThing|ResultType>;
+    getByName(name: string): Promise<Result<TThing|ResultType>>;
 }

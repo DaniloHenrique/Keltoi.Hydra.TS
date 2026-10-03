@@ -1,5 +1,5 @@
-import { ResultType } from "../../../core";
+import { ResultType, Result } from "../../../core";
 
 export interface IBeingRepository<TBeing>{
-    getByDescription(description: string): Promise<TBeing|ResultType>;
+    getByDescription(description: string): Promise<Result<TBeing|ResultType>>;
 }
