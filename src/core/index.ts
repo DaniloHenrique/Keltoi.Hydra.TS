@@ -6,7 +6,7 @@ export * from './result-types';
 export * from './ok';
 export * from './error';
 
-export * from './entityFactory';
+export * from './entity-factory';
 
 export * from './being';
 export * from './thing';

@@ -4,6 +4,6 @@ export interface IEntityFactory<
     TKey, 
     TEntity extends IEntity<TKey>
 > {
-    tableName: string;
+    readonly tableName: string;
     build(data: {}): TEntity;
 }
